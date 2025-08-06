@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+// constant products array with product details
   const products = [
     {
       id: 1,
@@ -58,9 +59,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const progressBar = document.getElementById("progress-bar");
   const emptyMessage = document.getElementById("empty-bundle-message");
 
-  
+// rendering the product when page loads
   function renderProduct() {
-      productGrid.innerHTML = "";
+    productGrid.innerHTML = "";
     products.forEach((product) => {
       const isSelected = selectedProducts.some((p) => p.id === product.id);
       const card = document.createElement("div");
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <h3 class="card-name">${product.name}</h3>
         <p class="card-price">$${product.price.toFixed(2)}</p>
         <button class="btn btn-add ${
-            isSelected ? "added" : ""
+          isSelected ? "added" : ""
         }" data-product-id="${product.id}">
           <span class="btn-text">${
             isSelected ? "Added to Bundle" : "Add to Bundle"
@@ -79,68 +80,73 @@ document.addEventListener("DOMContentLoaded", () => {
           <span class="check-icon">&#10003;</span>
           </button>
           `;
-          productGrid.appendChild(card);
-        });
-    }
-    
-    function toggleProduct(productId) {
-        const product = products.find((p) => p.id === productId);
+      productGrid.appendChild(card);
+    });
+  }
+
+//   selecting the product from product list
+  function toggleProduct(productId) {
+    const product = products.find((p) => p.id === productId);
     const index = selectedProducts.findIndex((p) => p.id === productId);
     if (index > -1) {
-        selectedProducts.splice(index, 1);
+      selectedProducts.splice(index, 1);
     } else {
-        selectedProducts.push(product);
+      selectedProducts.push(product);
     }
     updateUI();
-}
+  }
 
-function renderBundleList() {
+  // rendering the bundle list only after adding some products
+  function renderBundleList() {
     bundleList.innerHTML = "";
     if (selectedProducts.length === 0) {
-        emptyMessage.style.display = "block";
+      emptyMessage.style.display = "block";
     } else {
-        emptyMessage.style.display = "none";
+      emptyMessage.style.display = "none";
     }
     selectedProducts.forEach((product) => {
-        const item = document.createElement("div");
-        item.className = "bundle-item";
-        item.innerHTML = `
+      const item = document.createElement("div");
+      item.className = "bundle-item";
+      item.innerHTML = `
         <img src="${product.image}" alt="${
-            product.name
-        }" class="bundle-item-image">
+        product.name
+      }" class="bundle-item-image">
         <div>
         <p class="bundle-item-name">${product.name}</p>
         <p class="bundle-item-price">$${product.price.toFixed(2)}</p>
         </div>
         <button class="btn-remove" data-product-id="${
-            product.id
+          product.id
         }">&times;</button>
         `;
-        bundleList.appendChild(item);
+      bundleList.appendChild(item);
     });
-}
+  }
 
-function updateCartButton() {
-  if (selectedProducts.length < BUNDLE_SIZE) {
-    addToCartBtn.innerHTML = `
+//   cart button activate only after adding 3 product
+  function updateCartButton() {
+    if (selectedProducts.length < BUNDLE_SIZE) {
+      addToCartBtn.innerHTML = `
       <div class="btn-content">
-        <span>Select ${BUNDLE_SIZE - selectedProducts.length} more item(s)</span>
+        <span>Select ${
+          BUNDLE_SIZE - selectedProducts.length
+        } more item(s)</span>
         <img src="/assets/icons/CaretRight.svg" alt="Right arrow">
       </div>
     `;
-    addToCartBtn.disabled = true;
-  } else {
-    addToCartBtn.innerHTML = `
+      addToCartBtn.disabled = true;
+    } else {
+      addToCartBtn.innerHTML = `
       <div class="btn-content">
         <span>Add ${selectedProducts.length} items to cart</span>
         <img src="/assets/icons/CaretRight.svg" alt="Right arrow">
       </div>
     `;
-    addToCartBtn.disabled = false;
+      addToCartBtn.disabled = false;
+    }
   }
-}
 
-
+//   calculating the price and discount
   function updatePricing() {
     const subtotal = selectedProducts.reduce((sum, p) => sum + p.price, 0);
     let discount = 0;
@@ -154,20 +160,22 @@ function updateCartButton() {
     discountAmountEl.textContent = `-$${discount.toFixed(2)}`;
     totalPriceEl.textContent = `$${(subtotal - discount).toFixed(2)}`;
   }
-
+// dyanamic progress bar
   function updateProgressBar() {
     const progress = (selectedProducts.length / BUNDLE_SIZE) * 100;
     progressBar.style.width = `${Math.min(progress, 100)}%`;
   }
 
+//   update the UI after each change
   function updateUI() {
     renderProduct();
     renderBundleList();
     updatePricing();
     updateProgressBar();
-    updateCartButton()
+    updateCartButton();
   }
 
+//   event listeners
   productGrid.addEventListener("click", (e) => {
     const btn = e.target.closest(".btn-add");
     if (btn) toggleProduct(parseInt(btn.dataset.productId));
