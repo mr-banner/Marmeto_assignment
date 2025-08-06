@@ -37,12 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
       price: 150,
       image: "assets/image-6.jpg",
     },
-    {
-      id: 7,
-      name: "Chic Monochrome Blazzer",
-      price: 150,
-      image: "assets/image-6.jpg",
-    },
   ];
 
   const BUNDLE_SIZE = 3;
