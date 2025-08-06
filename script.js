@@ -121,10 +121,10 @@ function renderBundleList() {
 }
 
 function updateCartButton() {
-  if (selectedProducts.length === 0) {
+  if (selectedProducts.length < BUNDLE_SIZE) {
     addToCartBtn.innerHTML = `
       <div class="btn-content">
-        <span>Add items to cart</span>
+        <span>Select ${BUNDLE_SIZE - selectedProducts.length} more item(s)</span>
         <img src="/assets/icons/CaretRight.svg" alt="Right arrow">
       </div>
     `;
