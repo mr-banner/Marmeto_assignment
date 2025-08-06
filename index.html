@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Bundle Builder Assessment</title>
+</head>
+<body>
+    <main class="container">
+        <div class="main-layout">
+            <div class="products-section">
+                <div class="panel">
+                    <h1>Buy 3 and save 30%</h1>
+                    <div id="product-grid" class="product-grid"></div>
+                </div>
+            </div>
+
+            <div class="bundle-sidebar">
+                <div class="panel">
+                    <h2>Create a Bundle</h2>
+                    <p class="sub">Add at <strong>least 3</strong> products and <strong>save 30%</strong></p>
+                    <div class="progress-bar-container">
+                        <div id="progress-bar" class="progress-bar-fill" style="width: 0%;"></div>
+                    </div>
+
+                    <div id="bundle-list" class="custom-scrollbar"></div>
+                    <div id="empty-bundle-message">
+                        <p>Your bundle is empty.</p>
+                        <p>Add products from the left.</p>
+                    </div>
+
+                    <div class="pricing-details">
+                        <div class="pricing-row">
+                            <span>Subtotal</span>
+                            <span id="subtotal-price">$0.00</span>
+                        </div>
+                        <div id="discount-row" class="pricing-row">
+                            <span>Bundle Discount (30%)</span>
+                            <span id="discount-amount">-$0.00</span>
+                        </div>
+                        <div class="pricing-row total-row">
+                            <span>Total</span>
+                            <span id="total-price">$0.00</span>
+                        </div>
+                    </div>
+
+                    <button id="add-to-cart-btn" class="btn" style="margin-top: 15px;">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
